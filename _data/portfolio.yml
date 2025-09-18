@@ -1,0 +1,20 @@
+- title: "Learning Neural Wireless Fields for Predictive Channel Modeling"
+  # url: "/portfolio/1-winerf"
+  excerpt: "Developed a novel wireless differentiable rendering technique using 'wedge rays,' inspired by Mip-NeRF 360, to accurately model 2D Angle of Arrival (AoA) from a Uniform Linear Array. This technique was architected into a physics-inspired deep generative model using the Instant-NGP framework in PyTorch, learning a continuous representation of the wireless propagation field. The model can predict location-specific multipath characteristics, enabling proactive link optimization for mission-critical applications like AR/VR and robotics."
+
+- title: "Vital Sign Sensing with Passive RFID Tags"
+  # url: "/portfolio/2-rfid-vitals"
+  excerpt: "A low-cost, non-invasive system for monitoring human vital signs using phase changes in backscattered signals from commercial UHF RFID tags. An LSTM model is used to estimate respiratory patterns from movement data."
+
+- title: "Soil Moisture Sensing using Radio Frequency Signals"
+  excerpt: "Employed a USRP software-defined radio to transmit OFDM WiFi signals and measure RSSI and Return Loss for soil samples, estimating water moisture percentage using Topp's Equation."
+
+- title: "Social Media Data Analysis with BERT"
+  excerpt: "Designed a public perception and sentiment analysis pipeline for social media data related to urban issues. A fine-tuned BERT transformer model was used for topic modeling and sentiment classification of data scraped from Twitter."
+
+- title: "Raft-Based Key-Value Storage System"
+  excerpt: "Designed and implemented a scalable, fault-tolerant key-value storage system in Go for a Distributed Systems course, utilizing the Raft consensus protocol to manage state across servers."
+
+- title: "Blockchain Framework Marketplace Design"
+  url: "https://github.com/Saif2098/Pokemon-Blockchain"
+  excerpt: "Developed a concept marketplace for trading digital collectibles using a blockchain backbone, with a majority consensus mechanism to verify ownership during trades."
