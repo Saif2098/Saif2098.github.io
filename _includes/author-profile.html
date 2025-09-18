@@ -15,13 +15,12 @@
   </div>
 
   <div class="author__content">
-    <h3 class="author__name">{{ author.name }}</h3>
-    {% if author.pronouns %}<p class="author__pronouns">{{ author.pronouns }}</p>{% endif %}
-    {% if author.bio %}<p class="author__bio">{{ author.bio }}</p>{% endif %}
+    <h3 class="author__name" itemprop="name">{{ site.author.name }}</h3>
+    {% if site.author.bio %}<p class="author__bio" itemprop="description">{{ site.author.bio }}</p>{% endif %}
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse">Other Links & CV</button>
     <ul class="author__urls social-icons">
       {% if site.author.location %}
         <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">

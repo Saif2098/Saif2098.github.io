@@ -9,6 +9,8 @@ redirect_from:
 
 {% include base_path %}
 
+[**Download CV as PDF**](/files/cv.pdf){: .btn .btn--success}
+
 ## Education
 *   **Ph.D. in Computer Science**, University of Illinois Urbana-Champaign, 2022 - Present
 *   **B.S. in Electrical Engineering**, Lahore University of Management Sciences, 2018 - 2022
