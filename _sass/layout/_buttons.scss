@@ -21,9 +21,15 @@
   border: 0 !important;
   border-radius: $border-radius;
   cursor: pointer;
+  transition: $global-transition, transform 0.1s ease-out;
 
   &:hover {
     background-color: mix(white, #000, 20%);
+  }
+
+  &:active {
+    transform: scale(0.97);
+    transition-duration: 0.05s;
   }
 
   .icon {

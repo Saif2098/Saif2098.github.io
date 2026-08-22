@@ -28,16 +28,21 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2em 0 0.5em;
   line-height: 1.2;
   font-family: $header-font-family;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 h1 {
   margin-top: 0;
   font-size: $type-size-3;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
 h2 {
   font-size: $type-size-4;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 h3 {
@@ -46,14 +51,17 @@ h3 {
 
 h4 {
   font-size: $type-size-6;
+  letter-spacing: 0;
 }
 
 h5 {
   font-size: $type-size-6;
+  letter-spacing: 0;
 }
 
 h6 {
   font-size: $type-size-6;
+  letter-spacing: 0;
 }
 
 small, .small {
@@ -343,6 +351,16 @@ nav {
 b, i, strong, em, blockquote, p, q, span, figure, img, h1, h2, header, input, a, tr, td, form button, input[type="submit"], .btn, .highlight, .archive__item-teaser {
   -webkit-transition: $global-transition;
   transition: $global-transition;
+}
+
+/* Respect reduced-motion: swap springy transitions/animation for an instant or fade-only state */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ==========================================================================

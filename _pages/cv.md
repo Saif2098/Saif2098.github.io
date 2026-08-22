@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-[**Download CV as PDF**](/files/cv.pdf){: .btn .btn--success}
+[**Download CV as PDF**](/files/cv.pdf){: .btn}
 
 ## Education
 *   **Ph.D. in Computer Science**, University of Illinois Urbana-Champaign, 2022 - Present

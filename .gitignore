@@ -18,3 +18,13 @@ package-lock.json
 
 # Ignore folders related to IDEs
 .vscode/
+
+# macOS
+.DS_Store
+
+# Local working files and agent tooling — not website source.
+# project_context/ and .specstory/ hold notes on unpublished work; this
+# repository is public, so they must stay out of it.
+.claude/
+.specstory/
+project_context/
