@@ -1,0 +1,20 @@
+# News items shown on the home page sidebar.
+# The 3 most recent are shown; all appear on /allnews.
+# Each entry needs: date, headline
+- date: Aug 2026
+  headline: '<strong>PU-HNO</strong> submitted to <em>NeurIPS 2026</em>; preprint available on <a href="https://arxiv.org/abs/2608.18495">arXiv</a>.'
+
+- date: April 2026
+  headline: '<strong>WiNeRF</strong> accepted at <em>EWSN 2026</em>. <a href="https://ewsn.org/file-repository/ewsn2026/ewsn26-final38.pdf">[Paper]</a>'
+
+- date: Feb 2025
+  headline: 'Finalist, <em>Qualcomm Innovation Fellowship North America</em>.'
+
+- date: Nov 2024
+  headline: "Passed PhD qualifying exam and Advanced to Ph.D. candidacy."
+
+- date: Jan 2023
+  headline: '<em>Ray Ozzie Computer Science Fellowship</em>, 2023&#8211;2024.'
+
+- date: Jun 2022
+  headline: 'Graduated from LUMS with the <em>National Management Foundation Gold Medal</em>.'

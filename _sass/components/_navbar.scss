@@ -1,0 +1,160 @@
+// =============================================================
+// Navbar — translucent material layer (§12)
+// =============================================================
+// Content scrolls *under* the bar rather than being pushed by an opaque
+// strip. The separation is a soft scroll-edge fade that only appears once
+// content is actually underneath — not a permanent 1px rule.
+
+.navbar {
+  border-bottom: none;
+  padding: var(--space-3) var(--space-4);
+  z-index: 1030;
+  background-color: var(--material-bg) !important;
+  backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
+  -webkit-backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
+  box-shadow: inset 0 1px 0 var(--material-edge);
+  transition: box-shadow var(--dur-base) var(--ease-spring);
+
+  // Scroll edge — a fade where content meets the floating chrome
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 20px;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg-primary) 62%, transparent),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-spring);
+  }
+
+  &.scrolled {
+    box-shadow: inset 0 1px 0 var(--material-edge), var(--shadow-navbar);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.navbar-brand {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--text-primary) !important;
+  font-size: 1.125rem;
+  transition: opacity var(--dur-press) ease-out;
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+// Nav items read as pills — the active one is a filled chip
+.nav-link {
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: var(--space-2) var(--space-4) !important;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.005em;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  &:hover {
+    color: var(--text-primary) !important;
+    background-color: var(--accent-light);
+  }
+
+  // §1 — respond on press, not on release
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &.active {
+    color: var(--accent) !important;
+    background-color: var(--accent-light);
+    font-weight: 600;
+  }
+}
+
+.dark-mode-toggle,
+.search-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: var(--space-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  justify-content: center;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+// Mobile menu
+.navbar-toggler {
+  border: 1px solid var(--border-color);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 1rem;
+  transition: transform var(--dur-press) ease-out;
+
+  &:focus {
+    box-shadow: 0 0 0 3px var(--accent-ring);
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-collapse {
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--hairline);
+    margin-top: var(--space-3);
+  }
+
+  .navbar-nav {
+    gap: var(--space-1);
+  }
+
+  .nav-link {
+    padding: var(--space-3) var(--space-4) !important;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem !important;
+  }
+
+  .d-flex.align-items-center {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--hairline);
+    margin-top: var(--space-3);
+  }
+}

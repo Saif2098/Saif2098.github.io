@@ -1,0 +1,28 @@
+<header class="hero">
+<div class="hero-photo-frame">
+<img src="{{ site.url }}{{ site.baseurl }}/images/{{ site.photo }}" class="hero-photo" alt="{{ site.name }}" width="240" height="240">
+</div>
+<div class="hero-body">
+<h1 class="hero-name">{{ site.name }}</h1>
+<div class="hero-meta">
+<p class="hero-role">{{ site.title }}</p>
+<p class="hero-org">{{ site.institution }}</p>
+{% if site.location %}<p class="hero-org">{{ site.location }}</p>{% endif %}
+</div>
+<div class="hero-links">
+{% if site.email %}<a href="mailto:{{ site.email }}" class="hero-link"><i class="fa-solid fa-envelope"></i><span>{{ site.email }}</span></a>{% endif %}
+{% comment %}
+CV pill hidden: redundant with the CV item in the top nav, which leads to the
+CV page and its own download button. Remove the comment tags to bring it back.
+{% if site.links.cv and site.links.cv != "" %}<a href="{{ site.url }}{{ site.baseurl }}/{{ site.links.cv }}" class="hero-link"><i class="ai ai-cv"></i><span>CV</span></a>{% endif %}
+{% endcomment %}
+{% if site.links.google_scholar and site.links.google_scholar != "" %}<a href="{{ site.links.google_scholar }}" class="hero-link"><i class="ai ai-google-scholar"></i><span>Scholar</span></a>{% endif %}
+{% if site.links.github and site.links.github != "" %}<a href="{{ site.links.github }}" class="hero-link"><i class="fa-brands fa-github"></i><span>GitHub</span></a>{% endif %}
+{% if site.links.linkedin and site.links.linkedin != "" %}<a href="{{ site.links.linkedin }}" class="hero-link"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>{% endif %}
+{% if site.links.lab and site.links.lab != "" %}<a href="{{ site.links.lab }}" class="hero-link"><i class="fa-solid fa-flask"></i><span>iSens Lab</span></a>{% endif %}
+</div>
+{% if include.notice %}
+<p class="hero-notice"><span class="hero-notice-dot" aria-hidden="true"></span>{{ include.notice }}</p>
+{% endif %}
+</div>
+</header>

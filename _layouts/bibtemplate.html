@@ -1,0 +1,89 @@
+---
+---
+
+{% comment %}
+Structured publication row: teaser, venue tag, title, authors, actions.
+Built from individual BibTeX fields rather than the rendered CSL string so
+each part can be styled and scanned independently.
+{% endcomment %}
+
+<div class="pub-item{% if entry.image %} pub-item--thumb{% endif %}" data-pub-searchable>
+
+  {% if entry.image %}
+  {% if entry.pdf %}<a class="pub-thumb" href="{{ entry.pdf }}" target="_blank" tabindex="-1" aria-hidden="true">{% else %}<span class="pub-thumb">{% endif %}
+    <img src="{{ site.url }}{{ site.baseurl }}/images/publications/{{ entry.image }}" alt="" loading="lazy">
+  {% if entry.pdf %}</a>{% else %}</span>{% endif %}
+  {% endif %}
+
+  <div class="pub-info">
+
+    <div class="pub-meta">
+      {% if entry.venue %}<span class="pub-venue">{{ entry.venue }}</span>{% endif %}
+      {% if entry.status %}<span class="pub-status">{{ entry.status }}</span>{% endif %}
+      {% if entry.award %}<span class="pub-award">{{ entry.award }}</span>{% endif %}
+    </div>
+
+    <h4 class="pub-title">{{ entry.title }}</h4>
+
+    {% if entry.author %}
+    <p class="pub-authors">
+      {%- assign names = entry.author | split: ' and ' -%}
+      {%- for n in names -%}
+        {%- assign parts = n | split: ', ' -%}
+        {%- if parts.size > 1 -%}
+          {%- assign who = parts[1] | append: ' ' | append: parts[0] -%}
+        {%- else -%}
+          {%- assign who = n -%}
+        {%- endif -%}
+        {%- assign me = site.scholar.first_name[0] | append: ' ' | append: site.scholar.last_name -%}
+        {%- if who == me -%}<strong>{{ who }}</strong>{%- else -%}{{ who }}{%- endif -%}
+        {%- unless forloop.last -%}, {% endunless -%}
+      {%- endfor -%}
+    </p>
+    {% endif %}
+
+    {% assign bibtest = false %}
+    {% if entry.file %}
+    {% assign bibfile = "/papers/" | append: entry.file %}
+    {% for file in site.static_files %}
+      {% if file.path contains bibfile %}{% assign bibtest = true %}{% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <div class="pub-actions">
+      {% if entry.doi and entry.type == 'unpublished' %}
+      <a href="{{ entry.doi | prepend: 'https://arxiv.org/abs/' }}" target="_blank" class="pub-link">arXiv</a>
+      {% elsif entry.doi %}
+      <a href="{{ entry.doi | prepend: 'https://doi.org/' }}" target="_blank" class="pub-link">DOI</a>
+      {% endif %}
+
+      {% if entry.pdf %}
+      <a href="{{ entry.pdf }}" target="_blank" class="pub-link">PDF</a>
+      {% elsif bibtest %}
+      <a href="{{ site.url }}{{ site.baseurl }}/papers/{{ entry.file }}" target="_blank" class="pub-link">PDF</a>
+      {% endif %}
+
+      {% if entry.code %}
+      <a href="{{ entry.code }}" target="_blank" class="pub-link">Code</a>
+      {% endif %}
+
+      <button class="pub-link" data-bib-open="bib-{{ entry.key }}" data-bib-title="BibTeX">BibTeX</button>
+
+      {% if entry.abstract %}
+      <button class="pub-link" data-bib-open="abs-{{ entry.key }}" data-bib-title="Abstract">Abstract</button>
+      {% endif %}
+
+      {% if entry.topics %}
+      {% assign topics = entry.topics | split: ', ' %}
+      {% for t in topics %}<span class="pub-topic">{{ t }}</span>{% endfor %}
+      {% endif %}
+    </div>
+
+    {% comment %}Hidden sources — read by the dialog, never shown inline.{% endcomment %}
+    <template id="bib-{{ entry.key }}">{{ entry.bibtex }}</template>
+    {% if entry.abstract %}
+    <template id="abs-{{ entry.key }}">{{ entry.abstract }}</template>
+    {% endif %}
+
+  </div>
+</div>

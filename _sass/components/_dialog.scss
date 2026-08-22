@@ -1,0 +1,183 @@
+// =============================================================
+// BibTeX / abstract dialog (§12 — materialize, don't just fade)
+// =============================================================
+
+.bib-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background-color: rgba(20, 19, 16, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transition:
+    opacity var(--dur-base) var(--ease-spring),
+    background-color var(--dur-base) var(--ease-spring),
+    backdrop-filter var(--dur-base) var(--ease-spring),
+    -webkit-backdrop-filter var(--dur-base) var(--ease-spring);
+
+  &[hidden] {
+    display: none;
+  }
+
+  &.open {
+    opacity: 1;
+    background-color: rgba(20, 19, 16, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+.bib-box {
+  width: 100%;
+  max-width: 620px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  // Arrives as material: scale and blur resolve together
+  transform: translateY(-8px) scale(0.96);
+  filter: blur(3px);
+  transition:
+    transform var(--dur-base) var(--ease-spring),
+    filter var(--dur-base) var(--ease-spring);
+
+  .bib-overlay.open & {
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.bib-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.bib-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.bib-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.bib-body {
+  overflow: auto;
+  padding: var(--space-5);
+
+  pre {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text-secondary);
+  }
+}
+
+.bib-foot {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--hairline);
+  background-color: var(--bg-secondary);
+}
+
+.bib-copy {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &.copied {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+  }
+}
+
+// §14 — gentler equivalents, not the absence of feedback
+@media (prefers-reduced-motion: reduce) {
+  .bib-box {
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bib-overlay.open {
+    background-color: rgba(20, 19, 16, 0.8);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+// Focus is moved here programmatically on open; the dialog is already visually
+// distinct, so suppress the ring on the container itself (buttons keep theirs).
+.bib-box:focus,
+.bib-box:focus-visible {
+  outline: none;
+}

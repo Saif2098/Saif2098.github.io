@@ -1,0 +1,12 @@
+tags
+_site/
+.jekyll-cache/
+.sass-cache/
+.DS_Store
+package-lock.json
+node_modules/
+.worktrees/
+
+# Working files, not website source — kept local
+ewsn26-final38.pdf
+website-content-v*.md

@@ -1,0 +1,148 @@
+// =============================================================
+// Motion & accessibility (§4, §11, §14)
+// =============================================================
+
+// Scroll reveal — settles without overshoot; the element is never
+// hidden from assistive tech, only visually offset.
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-slow) var(--ease-spring),
+    transform var(--dur-slow) var(--ease-spring);
+  will-change: opacity, transform;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto;
+  }
+}
+
+// Back-to-top floating button
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--material-bg);
+  backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
+  -webkit-backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition:
+    opacity var(--dur-base) var(--ease-spring),
+    transform var(--dur-base) var(--ease-spring),
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring);
+  pointer-events: none;
+  z-index: 100;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &:active {
+    transform: scale(0.92);
+    transition: transform var(--dur-press) ease-out;
+  }
+}
+
+// Keyboard focus — visible, consistent, and never on mouse press
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+// -------------------------------------------------------------
+// §14 — three independent accessibility signals
+// -------------------------------------------------------------
+
+// Reduced motion: cross-fade instead of travel; no springs, no scaling.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-in-section {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-photo,
+  .banner-frame img,
+  .research-card,
+  .card-academic {
+    transform: none !important;
+  }
+
+  // Keep opacity feedback — it aids comprehension without vestibular cost
+  .btn-pill:active,
+  .hero-link:active,
+  .nav-link:active {
+    transform: none !important;
+    opacity: 0.7;
+    transition: opacity 120ms ease !important;
+  }
+}
+
+// Reduced transparency: make material surfaces solid, drop the blur.
+@media (prefers-reduced-transparency: reduce) {
+  .navbar,
+  .back-to-top {
+    background-color: var(--bg-primary) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .navbar {
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+// More contrast: near-solid surfaces with defined borders.
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: var(--text-primary);
+    --border-color: var(--text-muted);
+  }
+
+  .navbar {
+    background-color: var(--bg-primary) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid var(--text-muted);
+  }
+
+  .section-card,
+  .news-card,
+  .band-body,
+  .hero-link {
+    border-width: 1px;
+    border-color: var(--text-muted);
+  }
+}

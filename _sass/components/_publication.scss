@@ -1,0 +1,301 @@
+// =============================================================
+// Publications — editorial list, no card chrome
+// =============================================================
+// Each row reads top-down: venue tag, title, authors, actions.
+// Separation comes from hairlines and rhythm rather than boxes.
+
+.pub-list {
+  margin-top: var(--space-8);
+}
+
+// Group label with a rule running to the right margin
+.pub-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-12) 0 var(--space-2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--hairline);
+  }
+
+  &::before {
+    display: none;
+  }
+}
+
+// Scholar wraps entries in <ol>; the numbering adds nothing here
+.pub-list ol,
+.pub-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+// ---------- Entry ----------
+
+.pub-item {
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--hairline);
+
+  &.pub-item--thumb {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+}
+
+.pub-list li:last-child .pub-item {
+  border-bottom: none;
+}
+
+.pub-info {
+  min-width: 0;
+}
+
+.pub-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  background-image: none !important;
+  transition:
+    border-color var(--dur-base) var(--ease-spring),
+    transform var(--dur-base) var(--ease-spring);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+  }
+}
+
+a.pub-thumb:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+// ---------- Venue line ----------
+
+.pub-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.pub-venue {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.pub-status {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+
+.pub-award {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  background-color: rgba(217, 119, 6, 0.1);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #b45309;
+}
+
+[data-bs-theme="dark"] .pub-award {
+  color: #f0b45c;
+  border-color: rgba(240, 180, 92, 0.35);
+  background-color: rgba(240, 180, 92, 0.12);
+}
+
+// ---------- Title and authors ----------
+
+.pub-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2);
+  // Headings default to balanced wrapping; a citation title should fill
+  // the column instead of centring itself into short lines
+  text-wrap: pretty;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+}
+
+.pub-authors {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: none;
+  margin: 0 0 var(--space-3);
+
+  strong {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+}
+
+// ---------- Actions and topics ----------
+
+.pub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 0;
+}
+
+.pub-link {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  background-image: none !important;
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.6;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+.pub-topic {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+}
+
+// ---------- Collapsible BibTeX / abstract ----------
+
+.pub-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--dur-base) var(--ease-spring);
+
+  &.show {
+    max-height: 1200px;
+  }
+
+  pre {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: var(--space-3) 0 0;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text-secondary);
+  }
+}
+
+.copy-wrapper {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-2);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.8125rem;
+  line-height: 1;
+  opacity: 0;
+  z-index: 1;
+  transition:
+    opacity var(--dur-fast) var(--ease-spring),
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring);
+
+  .copy-wrapper:hover & {
+    opacity: 1;
+  }
+
+  &:hover,
+  &.copied {
+    color: var(--accent);
+    border-color: var(--accent);
+    opacity: 1;
+  }
+}
+
+// ---------- Mobile ----------
+
+@media (max-width: 640px) {
+  .pub-item.pub-item--thumb {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .pub-thumb {
+    width: 170px;
+    max-width: 60%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.pub-thumb:hover {
+    transform: none;
+  }
+}

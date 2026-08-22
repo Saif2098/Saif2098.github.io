@@ -1,0 +1,109 @@
+// =============================================================
+// Pill buttons and icon links
+// =============================================================
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.3rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  background-image: none !important;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    color var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  // §1 — feedback on press, instant
+  &:active {
+    transform: scale(0.96);
+    box-shadow: none;
+  }
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  &.btn-pdf {
+    background-color: var(--accent);
+    color: #fff;
+    &:hover { background-color: var(--accent-hover); color: #fff; }
+  }
+
+  &.btn-doi {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    &:hover { opacity: 0.85; color: var(--bg-primary); }
+  }
+
+  &.btn-arxiv {
+    background-color: #b31b1b;
+    color: #fff;
+    &:hover { background-color: #8c1515; color: #fff; }
+  }
+
+  &.btn-bib,
+  &.btn-abstract {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+    &:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+
+  &.btn-website {
+    background-color: var(--accent);
+    color: #fff;
+    &:hover { background-color: var(--accent-hover); color: #fff; }
+  }
+
+  &.btn-git {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    &:hover { opacity: 0.85; color: var(--bg-primary); }
+  }
+
+  &.btn-paper {
+    background-color: #b31b1b;
+    color: #fff;
+    &:hover { background-color: #8c1515; color: #fff; }
+  }
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  background-image: none !important;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  &:hover {
+    color: var(--accent);
+    background-color: var(--accent-light);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}

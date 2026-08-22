@@ -1,0 +1,65 @@
+// =============================================================
+// Card components
+// =============================================================
+// §12: material weight encodes hierarchy — larger surfaces read thicker
+// (deeper shadow), and lift on hover with a critically damped curve.
+
+.card-academic {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--dur-base) var(--ease-spring),
+    transform var(--dur-base) var(--ease-spring);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  h3, h4 {
+    margin-top: 0;
+  }
+}
+
+.section-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-base) var(--ease-spring);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  h3, h4 {
+    margin-top: 0;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  // Sub-headings within a card need air above them, but not the first one
+  h4 {
+    margin-top: var(--space-6);
+  }
+
+  > h4:first-child,
+  > h3:first-child {
+    margin-top: 0;
+  }
+
+  p:last-child,
+  ul:last-child {
+    margin-bottom: 0;
+  }
+}

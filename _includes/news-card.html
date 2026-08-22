@@ -1,0 +1,14 @@
+<h3 class="band-title">News</h3>
+<section class="news-card">
+<div class="news-list">
+{% for article in site.data.news limit: 4 %}
+<div class="news-row">
+<div class="news-date">{{ article.date }}</div>
+<div class="news-headline">{{ article.headline }}</div>
+</div>
+{% endfor %}
+</div>
+{% if site.data.news.size > 4 %}
+<a class="news-more" href="{{ site.url }}{{ site.baseurl }}/allnews.html">See all news <i class="fa-solid fa-arrow-right"></i></a>
+{% endif %}
+</section>
