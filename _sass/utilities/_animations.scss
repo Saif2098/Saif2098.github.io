@@ -1,45 +1,96 @@
 // =============================================================
-// Motion & accessibility (§4, §11, §14)
+// Motion — one orchestrated page load
 // =============================================================
+// A single staggered reveal at first paint beats scattered micro-effects.
+// It is CSS-only and self-triggering, so no JS and no observer.
+//
+// Two constraints govern this file:
+//   1. Nothing here may put a transform, filter, opacity or will-change on
+//      html/body. That would make body a stacking context, trapping the
+//      z-index:-2 graticule behind its own background and re-parenting every
+//      position:fixed overlay (search, dialog, back-to-top).
+//   2. The stagger goes on wrappers, never on interactive elements. A running
+//      animation beats a transition on the same property, so a card carrying
+//      both would ignore hover until the animation finished.
 
-// Scroll reveal — settles without overshoot; the element is never
-// hidden from assistive tech, only visually offset.
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+// The scroll-reveal class stays in the markup and site.js keeps toggling
+// .visible on it — it simply has no rules now. That retires the observer
+// without touching JS, and makes the home page's lack of the class moot.
 .fade-in-section {
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity var(--dur-slow) var(--ease-spring),
-    transform var(--dur-slow) var(--ease-spring);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: none;
+}
 
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-    will-change: auto;
+// ---- Load stagger ----------------------------------------------------------
+// Direct children of the two content wrappers. Capped at the eighth child so
+// a long bibliography does not end on a multi-second delay.
+
+.home-content > *,
+.fade-in-section > * {
+  animation: rise var(--dur-slow) var(--ease-out) both;
+}
+
+@for $i from 1 through 7 {
+  .home-content > :nth-child(#{$i}),
+  .fade-in-section > :nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 55}ms;
   }
 }
 
-// Back-to-top floating button
+.home-content > :nth-child(n + 8),
+.fade-in-section > :nth-child(n + 8) {
+  animation-delay: 385ms;
+}
+
+// Masthead parts arrive in reading order, slightly ahead of the body
+.hero-name      { animation: rise var(--dur-slow) var(--ease-out) both;  animation-delay:  40ms; }
+.hero-meta      { animation: rise var(--dur-slow) var(--ease-out) both;  animation-delay: 100ms; }
+.hero-links     { animation: rise var(--dur-slow) var(--ease-out) both;  animation-delay: 160ms; }
+.hero-notice    { animation: rise var(--dur-slow) var(--ease-out) both;  animation-delay: 220ms; }
+.hero-photo-frame { animation: rise var(--dur-slow) var(--ease-out) both; }
+
+// Section rules draw out from their origin
+h2::after,
+.pub-group::after,
+.band-title::after,
+.band-col h3::after {
+  transform-origin: left;
+  animation: draw var(--dur-slow) var(--ease-out) both;
+  animation-delay: 240ms;
+}
+
+// ---- Back to top -----------------------------------------------------------
+// Created by site.js and owns a .visible transition contract; left alone.
+
 .back-to-top {
   position: fixed;
   bottom: var(--space-8);
   right: var(--space-8);
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-full);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
   background-color: var(--material-bg);
   backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
   -webkit-backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
   border: 1px solid var(--border-color);
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-md);
   opacity: 0;
-  transform: translateY(8px) scale(0.96);
+  transform: translateY(8px);
   transition:
     opacity var(--dur-base) var(--ease-spring),
     transform var(--dur-base) var(--ease-spring),
@@ -50,67 +101,56 @@
 
   &.visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     pointer-events: auto;
   }
 
   &:hover {
     color: var(--accent);
     border-color: var(--accent);
-    box-shadow: var(--shadow-lg);
   }
 
-  &:active {
-    transform: scale(0.92);
-    transition: transform var(--dur-press) ease-out;
-  }
+  &:active { transform: scale(0.92); }
 }
 
-// Keyboard focus — visible, consistent, and never on mouse press
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
 
-// -------------------------------------------------------------
-// §14 — three independent accessibility signals
-// -------------------------------------------------------------
+// =============================================================
+// Accessibility — three independent signals
+// =============================================================
 
-// Reduced motion: cross-fade instead of travel; no springs, no scaling.
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    // Without this the stagger holds every element at opacity 0 for the full
+    // delay and then snaps them all in — worse than the animation it replaces.
+    animation-delay: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 
-  .fade-in-section {
-    opacity: 1;
-    transform: none;
-  }
-
   .hero-photo,
-  .banner-frame img,
-  .research-card,
-  .card-academic {
+  .pub-thumb,
+  .mini-card {
     transform: none !important;
   }
 
-  // Keep opacity feedback — it aids comprehension without vestibular cost
   .btn-pill:active,
+  .pub-link:active,
   .hero-link:active,
   .nav-link:active {
     transform: none !important;
     opacity: 0.7;
-    transition: opacity 120ms ease !important;
   }
 }
 
-// Reduced transparency: make material surfaces solid, drop the blur.
 @media (prefers-reduced-transparency: reduce) {
   .navbar,
   .back-to-top {
@@ -119,16 +159,14 @@
     -webkit-backdrop-filter: none !important;
   }
 
-  .navbar {
-    border-bottom: 1px solid var(--border-color);
-  }
+  .navbar { border-bottom: 1px solid var(--border-color); }
 }
 
-// More contrast: near-solid surfaces with defined borders.
 @media (prefers-contrast: more) {
   :root {
     --text-secondary: var(--text-primary);
     --border-color: var(--text-muted);
+    --hairline: var(--text-muted);
   }
 
   .navbar {
@@ -138,11 +176,5 @@
     border-bottom: 1px solid var(--text-muted);
   }
 
-  .section-card,
-  .news-card,
-  .band-body,
-  .hero-link {
-    border-width: 1px;
-    border-color: var(--text-muted);
-  }
+  body::before { display: none; }
 }

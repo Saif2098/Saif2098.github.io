@@ -1,15 +1,20 @@
 // =============================================================
-// Home page — hero band, News│Biography band, full-width research
+// Home — masthead, then a two-column band
 // =============================================================
 
-// ---------- Hero ----------
+// ---- Masthead --------------------------------------------------------------
+// The name is the largest thing on the site, set in the display serif at a
+// size where its contrast reads. A denser sampling lattice sits behind the
+// portrait — the graticule, locally resolved.
 
 .hero {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 200px 1fr;
   gap: var(--space-10);
   align-items: start;
-  margin-bottom: var(--space-10);
+  padding-bottom: var(--space-10);
+  margin-bottom: var(--space-12);
+  border-bottom: 1px solid var(--rule);
 
   @media (max-width: 720px) {
     grid-template-columns: 1fr;
@@ -19,56 +24,67 @@
 }
 
 .hero-photo-frame {
-  border-radius: var(--radius-2xl);
-  overflow: hidden;
-  background-color: var(--bg-card);
-  box-shadow: var(--shadow-md);
-  aspect-ratio: 1;
+  position: relative;
   width: 100%;
-  max-width: 220px;
+  max-width: 200px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
 
-  @media (max-width: 720px) {
-    max-width: 148px;
+  // A fine lattice, offset behind the plate like a registration mark. It sits
+  // deliberately proud of the portrait on two sides rather than ringing it.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: var(--space-6) calc(var(--space-5) * -1) calc(var(--space-5) * -1) var(--space-6);
+    z-index: -1;
+    background-image:
+      linear-gradient(to right, var(--instrument-soft) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--instrument-soft) 1px, transparent 1px);
+    background-size: 8px 8px;
   }
+
+  @media (max-width: 720px) { max-width: 148px; }
 }
 
+// Absolute fill: the image carries its own 240x240 intrinsic ratio, which
+// otherwise wins over height:100% and leaves the frame part-empty.
 .hero-photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  // §11 — compositor-friendly properties only
-  transition: transform var(--dur-slow) var(--ease-out);
+  border-radius: var(--radius-sm);
+  filter: saturate(0.92);
+  transition: filter var(--dur-slow) var(--ease-out);
 
-  .hero-photo-frame:hover & {
-    transform: scale(1.03);
-  }
+  .hero-photo-frame:hover & { filter: saturate(1); }
 }
 
+.hero-body { min-width: 0; }
+
 .hero-name {
-  font-size: clamp(2.25rem, 1.5rem + 3.2vw, 3.25rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 1.6rem + 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin: -0.12em 0 var(--space-5);
   color: var(--text-primary);
 
-  &::before {
-    display: none;
-  }
+  &::before, &::after { display: none; }
 }
 
 .hero-meta {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 
-  p {
-    margin: 0;
-    max-width: none;
-  }
+  p { margin: 0; max-width: none; }
 }
 
 .hero-role {
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.008em;
@@ -80,36 +96,38 @@
   line-height: 1.55;
 }
 
+// ---- Contact rail ----------------------------------------------------------
+// Squared, hairline-ruled, mono-labelled — instrument switches rather than
+// app buttons.
+
 .hero-links {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
 }
 
-// Outlined pills — icon plus an explicit label (§16: specific beats generic)
 .hero-link {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-full);
-  background-color: var(--bg-card);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
   color: var(--text-secondary);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
   text-decoration: none;
-  background-image: none !important;
-  box-shadow: var(--shadow-sm);
   transition:
     color var(--dur-fast) var(--ease-spring),
     border-color var(--dur-fast) var(--ease-spring),
-    box-shadow var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
     transform var(--dur-press) ease-out;
 
   i {
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
     color: var(--text-muted);
     transition: color var(--dur-fast) var(--ease-spring);
   }
@@ -117,30 +135,41 @@
   &:hover {
     color: var(--accent);
     border-color: var(--accent);
-    box-shadow: var(--shadow-md);
-
-    i {
-      color: var(--accent);
-    }
+    background-color: var(--accent-light);
+    i { color: var(--accent); }
   }
 
-  &:active {
-    transform: scale(0.97);
-    box-shadow: var(--shadow-sm);
+  &:active { transform: scale(0.97); }
+}
+
+// The CV is the document a reader has come for; give it the accent so it
+// leads the rail without breaking the row's shape.
+.hero-link--primary {
+  border-color: var(--accent);
+  color: var(--accent);
+
+  i { color: var(--accent); }
+
+  &:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    i { color: #fff; }
   }
 }
 
-// Compact availability notice, sitting under the link pills
+// ---- Availability notice ---------------------------------------------------
+// A tuned indicator: a live dot against a ruled strip.
+
 .hero-notice {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  margin: var(--space-4) 0 0;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(217, 119, 6, 0.32);
-  background-color: rgba(217, 119, 6, 0.09);
-  font-size: 0.8125rem;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid var(--accent);
+  background-color: var(--accent-light);
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--text-primary);
   max-width: 100%;
@@ -148,54 +177,25 @@
 
 .hero-notice-dot {
   flex: 0 0 auto;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: var(--radius-full);
-  background-color: #d97706;
+  background-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
 }
 
-// The band that follows the hero needs its own breathing room now that the
-// notice lives inside the hero block
-.hero {
-  margin-bottom: var(--space-12);
-}
-
-// ---------- News │ Biography band ----------
+// ---- News │ Biography band -------------------------------------------------
 
 .home-band {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
-  gap: var(--space-10);
+  gap: var(--space-12);
   align-items: stretch;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-16);
 
   @media (max-width: 880px) {
     grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
-}
-
-.band-title {
-  margin-top: 0;
-  margin-bottom: var(--space-4);
-  position: relative;
-  padding-left: var(--space-4);
-  font-size: 1.25rem;
-  letter-spacing: -0.018em;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.16em;
-    bottom: 0.16em;
-    width: 4px;
-    border-radius: var(--radius-full);
-    background-color: var(--accent);
-  }
-
-  &::after {
-    display: none;
+    gap: var(--space-10);
   }
 }
 
@@ -204,77 +204,62 @@
   display: flex;
   flex-direction: column;
 
-  // Markdown headings inside the band match the news card's title treatment
-  h3 {
-    margin-top: 0;
-    margin-bottom: var(--space-4);
-    position: relative;
-    padding-left: var(--space-4);
-    font-size: 1.25rem;
-    letter-spacing: -0.018em;
+  h3 { @extend %band-heading; }
+}
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.16em;
-      bottom: 0.16em;
-      width: 4px;
-      border-radius: var(--radius-full);
-      background-color: var(--accent);
-    }
+// Column headings share the navbar's mono voice, ruled to the margin
+%band-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+
+  &::before { display: none; }
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--hairline);
   }
 }
+
+.band-title { @extend %band-heading; }
 
 .band-body {
   flex: 1;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6) var(--space-8);
-  box-shadow: var(--shadow-sm);
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 
-  p:last-child {
-    margin-bottom: 0;
+  p {
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: none;
   }
+
+  p:last-child { margin-bottom: 0; }
 }
 
-// ---------- News list ----------
+// ---- News ------------------------------------------------------------------
 
 .news-card {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--space-2) var(--space-6) var(--space-4);
-  box-shadow: var(--shadow-sm);
-}
-
-// Pinned to the bottom so the card matches the Biography card's height
-.news-more {
-  margin-top: auto;
-  padding-top: var(--space-4);
-  align-self: flex-start;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--accent);
-  background-image: none !important;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  transition: gap var(--dur-fast) var(--ease-spring);
-
-  i {
-    font-size: 0.6875rem;
-    transition: transform var(--dur-fast) var(--ease-spring);
-  }
-
-  &:hover i {
-    transform: translateX(3px);
-  }
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
 .news-list {
@@ -284,15 +269,14 @@
 
 .news-row {
   display: grid;
-  grid-template-columns: 5.5rem 1fr;
+  grid-template-columns: 5rem 1fr;
   gap: var(--space-4);
   align-items: baseline;
   padding: var(--space-4) 0;
   border-bottom: 1px solid var(--hairline);
 
-  &:last-child {
-    border-bottom: none;
-  }
+  &:first-child { padding-top: 0; }
+  &:last-child { border-bottom: none; }
 
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
@@ -301,12 +285,12 @@
 }
 
 .news-date {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
   font-weight: 400;
-  color: var(--text-muted);
+  color: var(--instrument);
   text-transform: uppercase;
-  letter-spacing: 0.06em;  // small text gets a positive tracking bump (§15)
+  letter-spacing: 0.1em;
   white-space: nowrap;
 }
 
@@ -316,60 +300,32 @@
   line-height: 1.6;
 }
 
-// ---------- Full-width sections below the band ----------
+.news-more {
+  margin-top: auto;
+  padding-top: var(--space-5);
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  i {
+    font-size: 0.625rem;
+    transition: transform var(--dur-fast) var(--ease-spring);
+  }
+
+  &:hover i { transform: translateX(4px); }
+}
+
+// ---- Body sections below the band ------------------------------------------
 
 .home-content {
   min-width: 0;
 
-  h3:first-child {
-    margin-top: 0;
-  }
-}
-
-// Legacy hero styles retained for any page still using them
-.home-hero {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 2.75rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.06;
-  margin-top: 0;
-  margin-bottom: var(--space-1);
-  color: var(--text-primary);
-}
-
-.home-hero-sub {
-  font-size: 1.0625rem;
-  color: var(--text-muted);
-  margin-bottom: var(--space-8);
-  max-width: none;
-}
-
-// Banner image — editorial frame with caption
-.banner-frame {
-  margin: var(--space-8) 0;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-card);
-
-  img {
-    width: 100%;
-    display: block;
-    border-radius: 0;
-    transition: transform var(--dur-slow) var(--ease-out);
-  }
-
-  &:hover img {
-    transform: scale(1.02);
-  }
-
-  .banner-caption {
-    padding: var(--space-3) var(--space-4);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    border-top: 1px solid var(--hairline);
-    background-color: var(--bg-secondary);
-  }
+  h3:first-child { margin-top: 0; }
 }

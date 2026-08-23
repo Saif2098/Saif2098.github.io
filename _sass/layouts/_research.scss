@@ -1,105 +1,93 @@
 // =============================================================
-// Research page — single-column project entries
+// Research — numbered entries, not cards
 // =============================================================
-// Title first, one inline meta line beneath it, prose at a real reading
-// measure, figure beside the lead where there is one, actions at the end.
+// Each project is set like an item in a paper: a mono index, a title, a
+// ruled metadata line, then prose with the figure floated into it.
 
 .proj-card {
   position: relative;
-  overflow: hidden;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-sm);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
-  transition: box-shadow var(--dur-base) var(--ease-spring);
+  counter-increment: project;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--rule);
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--space-8) 0 var(--space-10);
+  margin: 0;
 
-  // Accent edge — the one vertical line the card gets
+  // Entry index, hung in the margin. Bracketed like a reference marker so it
+  // never reads as a competing section number next to the h2 counter.
   &::before {
+    content: '[' counter(project) ']';
+    position: absolute;
+    top: calc(var(--space-8) + 0.15rem);
+    left: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--instrument);
+  }
+
+  // Axis tick where the rule begins
+  &::after {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
-    bottom: 0;
-    width: 3px;
+    width: 1px;
+    height: var(--space-3);
     background-color: var(--accent);
   }
 
-  &:hover {
-    box-shadow: var(--shadow-md);
-  }
-
-  > *:last-child {
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 640px) {
-    padding: var(--space-6);
+  @media (min-width: 900px) {
+    padding-left: var(--space-16);
+    &::before { left: 0; }
   }
 }
-
-// ---------- Title + meta ----------
 
 .proj-title {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-sans);
   font-size: 1.375rem;
+  font-weight: 600;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
   text-wrap: pretty;
 
-  &::before,
-  &::after {
-    display: none;
-  }
+  &::before, &::after { display: none; }
 }
 
+// Metadata reads as an instrument line
 .proj-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2) var(--space-3);
   margin: 0 0 var(--space-6);
-  font-size: 0.8125rem;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--text-muted);
+  max-width: none;
 }
 
-.proj-status {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-}
+.proj-status { color: var(--instrument); }
 
 .proj-fact {
   &::before {
-    content: '·';
+    content: '/';
     margin-right: var(--space-3);
     color: var(--border-color);
   }
 }
 
-// Narrow screens: stack the meta items so no line starts with a separator
-@media (max-width: 640px) {
-  .proj-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-1);
-  }
+// ---- Body ----
 
-  .proj-fact::before {
-    display: none;
-  }
-}
-
-// ---------- Body ----------
-
-// The figure floats right so the lead *and* the body flow around it —
-// however tall the figure is, no column is left waiting for the other.
-.proj-intro {
-  margin-bottom: var(--space-5);
-}
+.proj-intro { margin-bottom: var(--space-5); }
 
 .proj-lead {
   font-size: 1.0625rem;
@@ -109,13 +97,14 @@
   max-width: none;
 }
 
+// The figure floats so prose closes around it and the entry stays compact
 .proj-figure {
   float: right;
   width: 44%;
   margin: 0.25rem 0 var(--space-5) var(--space-8);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  border: 1px solid var(--border-color);
   background-color: var(--bg-secondary);
 
   img {
@@ -132,13 +121,8 @@
 }
 
 .proj-body {
-  p {
-    max-width: 72ch;
-  }
-
-  > p:last-child {
-    margin-bottom: 0;
-  }
+  p { max-width: 70ch; }
+  > p:last-child { margin-bottom: 0; }
 }
 
 .proj-actions {
@@ -147,71 +131,71 @@
   gap: var(--space-2);
   clear: both;
   margin-top: var(--space-6);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--hairline);
 }
 
-// Cards without an action row still need the float closed
-.proj-card::after {
+// Close the float even when an entry has no action row
+.proj-card > .proj-body::after {
   content: '';
   display: block;
   clear: both;
 }
 
-// ---------- Compact cards for earlier work and software ----------
+@media (max-width: 640px) {
+  .proj-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+  .proj-fact::before { display: none; }
+}
+
+// ---- Compact entries: earlier work and software ----
 
 .mini-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0;
   align-items: stretch;
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-12);
+  border-top: 1px solid var(--hairline);
 }
 
 .mini-card {
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-top: 3px solid var(--mini-accent, var(--accent));
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
-  box-shadow: var(--shadow-sm);
-  transition:
-    box-shadow var(--dur-base) var(--ease-spring),
-    transform var(--dur-base) var(--ease-spring);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--space-5) var(--space-6) var(--space-5) 0;
 
   h4 {
     margin-top: 0;
     margin-bottom: var(--space-2);
-    font-size: 1rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.35;
 
-    &::before,
-    &::after {
-      display: none;
-    }
+    &::before, &::after { display: none; }
   }
 
   p {
     font-size: 0.875rem;
-    line-height: 1.65;
+    line-height: 1.6;
     color: var(--text-secondary);
     max-width: none;
     margin-bottom: 0;
   }
 
-  // Actions pin to the bottom so cards in a row stay level
   .pub-actions {
     margin-top: auto;
     padding-top: var(--space-4);
   }
 }
 
-.mini-grid > :nth-child(3n + 1) { --mini-accent: var(--accent); }
-.mini-grid > :nth-child(3n + 2) { --mini-accent: #16a34a; }
-.mini-grid > :nth-child(3n + 3) { --mini-accent: #d97706; }
+// A vertical rule between columns, like a ruled table
+@media (min-width: 620px) {
+  .mini-grid { column-gap: var(--space-8); }
+  .mini-card { padding-right: var(--space-6); }
+}

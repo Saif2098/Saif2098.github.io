@@ -1,65 +1,67 @@
 // =============================================================
-// Card components
+// Section block
 // =============================================================
-// §12: material weight encodes hierarchy — larger surfaces read thicker
-// (deeper shadow), and lift on hover with a critically damped curve.
-
-.card-academic {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  margin-bottom: var(--space-6);
-  box-shadow: var(--shadow-sm);
-  transition:
-    box-shadow var(--dur-base) var(--ease-spring),
-    transform var(--dur-base) var(--ease-spring);
-
-  &:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
-  }
-
-  h3, h4 {
-    margin-top: 0;
-  }
-}
+// Not a card. A ruled block, the way a paper separates sections — a rule
+// above, an instrument label, then the content. Used on CV, Teaching, 404.
 
 .section-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  margin-top: var(--space-6);
-  margin-bottom: var(--space-6);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--dur-base) var(--ease-spring);
+  position: relative;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--rule);
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--space-6) 0 var(--space-10);
+  margin: 0;
 
-  &:hover {
-    box-shadow: var(--shadow-md);
+  // Axis tick at the origin of the rule
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: var(--space-3);
+    background-color: var(--accent);
   }
 
-  h3, h4 {
+  // Section title as an instrument label
+  > h3:first-child,
+  > h4:first-child {
     margin-top: 0;
-
-    &::before,
-    &::after {
-      display: none;
-    }
+    margin-bottom: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
   }
 
-  // Sub-headings within a card need air above them, but not the first one
-  h4 {
-    margin-top: var(--space-6);
+  h4 { margin-top: var(--space-6); }
+
+  ul {
+    margin-bottom: 0;
+    padding-left: var(--space-5);
   }
 
-  > h4:first-child,
-  > h3:first-child {
-    margin-top: 0;
+  li {
+    margin-bottom: var(--space-3);
+    line-height: 1.65;
+
+    &::marker { color: var(--text-muted); }
+    &:last-child { margin-bottom: 0; }
   }
 
   p:last-child,
-  ul:last-child {
-    margin-bottom: 0;
-  }
+  ul:last-child { margin-bottom: 0; }
+}
+
+// The 404 numeral, previously an inline font stack in markup
+.four-oh-four {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1;
+
+  &::before, &::after { display: none; }
 }

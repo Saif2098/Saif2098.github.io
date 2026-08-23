@@ -1,57 +1,117 @@
 // =============================================================
-// Footer — warm, structured
+// Footer — a colophon
 // =============================================================
+// Must remain display:grid with at least two columns: the copyright row
+// in _includes/footer.html hardcodes grid-column: 1 / -1 inline.
 
 .site-footer {
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  padding: var(--space-12) 0 var(--space-8);
-  margin-top: var(--space-16);
+  margin-top: var(--space-20);
+  padding: var(--space-12) 0 var(--space-10);
+  border-top: 1px solid var(--rule);
+  background: none;
   position: relative;
 
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: var(--space-3);
+    background-color: var(--accent);
+  }
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-8);
+
+  // Equal columns leave the About block too narrow for "University of
+  // Illinois Urbana-Champaign", which then wraps raggedly. Weight the
+  // columns once there is room for all four.
+  @media (min-width: 900px) {
+    grid-template-columns: 1.6fr 1.2fr 1fr 1fr;
+  }
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+
   h5 {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 700;
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     color: var(--text-muted);
-    margin-bottom: var(--space-4);
-    margin-top: 0;
   }
 
-  p, a {
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
+  a,
+  p {
+    font-size: 0.875rem;
     line-height: 1.9;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: none;
   }
 
-  a:hover {
-    color: var(--accent);
+  a {
+    transition: color var(--dur-fast) var(--ease-spring);
+    &:hover { color: var(--accent); }
   }
 
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8);
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-
-    @media (max-width: 640px) {
-      grid-template-columns: 1fr;
-      gap: var(--space-6);
-    }
-  }
-
-  .footer-copyright {
-    text-align: center;
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--border-color);
+  i {
+    width: 1.1em;
     color: var(--text-muted);
-    font-size: 0.6875rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    margin-right: var(--space-1);
   }
+}
+
+// The CV is a document, not a profile link — it gets its own column and
+// reads as an action rather than another entry in a list.
+.footer-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  i {
+    color: var(--text-muted);
+    margin-right: 0;
+    transition: color var(--dur-fast) var(--ease-spring);
+  }
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+    i { color: var(--accent); }
+  }
+
+  &:active { transform: scale(0.97); }
+}
+
+.footer-copyright {
+  margin-top: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }

@@ -36,16 +36,13 @@ $baseurl: "{{ site.url }}{{ site.baseurl }}";
 @import "components/navbar";
 @import "components/buttons";
 @import "components/footer";
-@import "components/profile";
 @import "components/publication";
 @import "components/search";
-@import "components/chips";
 @import "components/dialog";
 
 // Layouts
 @import "layouts/grid";
 @import "layouts/home";
-@import "layouts/team";
 @import "layouts/research";
 
 // Utilities
