@@ -70,6 +70,15 @@ h2 {
   }
 }
 
+// A lone heading is a page title, not item one of a sequence. Numbering it
+// invites the reader to look for an 02 that never comes. The rule stays —
+// that is what carries the offprint voice — and only the numeral drops.
+// :only-of-type matches an h2 that is the sole h2 among its siblings, so
+// this needs no markup and adjusts itself if a page later gains sections.
+h2:only-of-type {
+  &::before { display: none; }
+}
+
 // Sub-headings return to the grotesque — Instrument Serif is too fine here
 h3, h4, h5, h6 {
   font-family: var(--font-sans);
