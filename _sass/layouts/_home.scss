@@ -142,6 +142,22 @@
   &:active { transform: scale(0.97); }
 }
 
+// The CV is the document a reader has come for; give it the accent so it
+// leads the rail without breaking the row's shape.
+.hero-link--primary {
+  border-color: var(--accent);
+  color: var(--accent);
+
+  i { color: var(--accent); }
+
+  &:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    i { color: #fff; }
+  }
+}
+
 // ---- Availability notice ---------------------------------------------------
 // A tuned indicator: a live dot against a ruled strip.
 

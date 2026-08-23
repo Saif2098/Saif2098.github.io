@@ -11,10 +11,11 @@ photo: saif-photo.png  # place your photo in images/
 # STEP 2: Your Links (optional -- delete any you don't use)
 # ============================================================
 links:
-  # NOTE: v7 of the content doc does not list Google Scholar (it lists GitHub,
-  # LinkedIn, Lab, CV and email). Kept here because it was specified in v3 and
-  # the URL is valid -- delete this line if the omission was intentional.
-  google_scholar: "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+  # Google Scholar: blank until Saif creates his profile. The old URL pointed
+  # at someone else's page. Every consumer (hero pill, footer link, and the
+  # JSON-LD sameAs in head.html) is guarded by an empty-string check, so an
+  # empty value removes it everywhere. Paste the real URL here to restore it.
+  google_scholar: ""
   github: "https://github.com/Saif2098"
   linkedin: "https://www.linkedin.com/in/saif98"
   lab: "https://isens.cs.illinois.edu/"
