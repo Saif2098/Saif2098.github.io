@@ -1,23 +1,17 @@
 // =============================================================
-// Reset + global atmosphere
+// Reset + atmosphere
 // =============================================================
 
 html {
   scroll-behavior: smooth;
 
-  // Custom scrollbar — thin, accent-tinted
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-  }
+  &::-webkit-scrollbar { width: 10px; }
+  &::-webkit-scrollbar-track { background: var(--bg-secondary); }
   &::-webkit-scrollbar-thumb {
     background: var(--border-color);
-    border-radius: 4px;
-    &:hover {
-      background: var(--accent);
-    }
+    border: 3px solid var(--bg-secondary);
+    border-radius: 999px;
+    &:hover { background: var(--text-muted); }
   }
   scrollbar-width: thin;
   scrollbar-color: var(--border-color) var(--bg-secondary);
@@ -26,60 +20,92 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   position: relative;
-
-  // Subtle noise texture for depth
-  &::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    opacity: 0.3;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
-  }
+  min-height: 100vh;
 }
 
-[data-bs-theme="dark"] body::before {
-  opacity: 0.5;
+// ---- Measurement graticule -------------------------------------------------
+// The wireless identity, stated quietly: a fixed sampling lattice under the
+// page, the way a plot sits on graph paper. Minor lines every --grid-size,
+// major lines every fourth. Fades out toward the foot of the viewport so it
+// reads as ground, not decoration.
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size:
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size),
+    calc(var(--grid-size) * 4) calc(var(--grid-size) * 4),
+    calc(var(--grid-size) * 4) calc(var(--grid-size) * 4);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 88%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 88%);
 }
+
+// ---- Paper grain -----------------------------------------------------------
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+[data-bs-theme="dark"] body::after { opacity: 0.4; }
 
 img {
   max-width: 100%;
   height: auto;
 }
 
-// Animated underline links — gradient trick for smooth width transition
+// ---- Links: a crisp rule, not a soft gradient ------------------------------
+// In running prose a link keeps the ink colour and is marked by a rule;
+// colour is reserved for hover and for controls. Accent everywhere makes
+// a paragraph look speckled.
 a {
-  color: var(--accent);
+  color: inherit;
   text-decoration: none;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 0% 1px;
-  background-position: left bottom;
-  background-repeat: no-repeat;
-  transition: background-size var(--transition-base), color var(--transition-fast);
-  padding-bottom: 1px;
+  box-shadow: inset 0 -1px 0 0 var(--accent-ring);
+  transition:
+    box-shadow var(--dur-fast) var(--ease-spring),
+    color var(--dur-fast) var(--ease-spring);
 
   &:hover {
-    color: var(--accent-hover);
-    background-size: 100% 1px;
+    color: var(--accent);
+    box-shadow: inset 0 -2px 0 0 var(--accent);
   }
 }
 
-// Exceptions — don't underline these on hover
+// Chrome and controls opt out of the underline entirely
 .nav-link,
 .navbar-brand,
 .icon-link,
 .btn-pill,
+.pub-link,
+.pub-thumb,
+.hero-link,
+.news-more,
 .dark-mode-toggle,
-.profile-card a,
-.footer-copyright a {
-  background-image: none !important;
-  padding-bottom: 0;
+.search-toggle,
+.search-result-item,
+.footer-copyright a,
+.site-footer a,
+.proj-figure,
+h1 a, h2 a, h3 a, h4 a {
+  box-shadow: none;
+
+  &:hover { box-shadow: none; }
 }
 
 ::selection {

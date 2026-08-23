@@ -1,32 +1,35 @@
 // =============================================================
-// Navbar — translucent material layer (§12)
+// Navbar — a running head
 // =============================================================
-// Content scrolls *under* the bar rather than being pushed by an opaque
-// strip. The separation is a soft scroll-edge fade that only appears once
-// content is actually underneath — not a permanent 1px rule.
+// Set like the header of a journal page: the name in the display serif,
+// section links in small letterspaced mono. Translucent, content passes
+// beneath, separated by a scroll edge rather than a permanent rule.
 
 .navbar {
+  // Bootstrap's .sticky-top helper is never imported, so the markup class
+  // does nothing; state it here instead. Without this the translucency and
+  // scroll-edge below are decorative — content never passes beneath.
+  position: sticky;
+  top: 0;
   border-bottom: none;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-4);
   z-index: 1030;
   background-color: var(--material-bg) !important;
   backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
   -webkit-backdrop-filter: saturate(var(--material-saturate)) blur(var(--material-blur));
-  box-shadow: inset 0 1px 0 var(--material-edge);
   transition: box-shadow var(--dur-base) var(--ease-spring);
 
-  // Scroll edge — a fade where content meets the floating chrome
   &::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     top: 100%;
-    height: 20px;
+    height: 24px;
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--bg-primary) 62%, transparent),
+      color-mix(in srgb, var(--bg-primary) 70%, transparent),
       transparent
     );
     opacity: 0;
@@ -34,54 +37,61 @@
   }
 
   &.scrolled {
-    box-shadow: inset 0 1px 0 var(--material-edge), var(--shadow-navbar);
-
-    &::after {
-      opacity: 1;
-    }
+    box-shadow: 0 1px 0 0 var(--hairline);
+    &::after { opacity: 1; }
   }
 }
 
 .navbar-brand {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-weight: 700;
-  letter-spacing: -0.018em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.375rem;
+  letter-spacing: -0.015em;
   color: var(--text-primary) !important;
-  font-size: 1.125rem;
   transition: opacity var(--dur-press) ease-out;
 
-  &:active {
-    opacity: 0.6;
-  }
+  &:active { opacity: 0.6; }
 }
 
-// Nav items read as pills — the active one is a filled chip
+// Section links: mono, letterspaced, marked by a rule when active
 .nav-link {
-  color: var(--text-secondary) !important;
-  font-weight: 500;
-  font-size: 0.875rem;
-  padding: var(--space-2) var(--space-4) !important;
-  border-radius: var(--radius-full);
-  letter-spacing: 0.005em;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted) !important;
+  padding: var(--space-2) 0 !important;
+  margin: 0 var(--space-4);
+  border-radius: 0;
   transition:
     color var(--dur-fast) var(--ease-spring),
-    background-color var(--dur-fast) var(--ease-spring),
     transform var(--dur-press) ease-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-spring);
+  }
 
   &:hover {
     color: var(--text-primary) !important;
-    background-color: var(--accent-light);
+    &::after { transform: scaleX(1); }
   }
 
-  // §1 — respond on press, not on release
-  &:active {
-    transform: scale(0.96);
-  }
+  &:active { transform: scale(0.97); }
 
   &.active {
-    color: var(--accent) !important;
-    background-color: var(--accent-light);
-    font-weight: 600;
+    color: var(--text-primary) !important;
+    &::after { transform: scaleX(1); }
   }
 }
 
@@ -89,17 +99,17 @@
 .search-toggle {
   background: none;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   padding: var(--space-2);
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   line-height: 1;
   display: flex;
   align-items: center;
-  width: 2rem;
-  height: 2rem;
   justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
   transition:
     color var(--dur-fast) var(--ease-spring),
     border-color var(--dur-fast) var(--ease-spring),
@@ -112,49 +122,39 @@
     background-color: var(--accent-light);
   }
 
-  &:active {
-    transform: scale(0.92);
-  }
+  &:active { transform: scale(0.92); }
 }
 
-// Mobile menu
 .navbar-toggler {
   border: 1px solid var(--border-color);
   padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   transition: transform var(--dur-press) ease-out;
 
-  &:focus {
-    box-shadow: 0 0 0 3px var(--accent-ring);
-  }
-
-  &:active {
-    transform: scale(0.94);
-  }
+  &:focus { box-shadow: 0 0 0 3px var(--accent-ring); }
+  &:active { transform: scale(0.94); }
 }
 
 @media (max-width: 767px) {
   .navbar-collapse {
     padding: var(--space-4) 0;
     border-top: 1px solid var(--hairline);
-    margin-top: var(--space-3);
+    margin-top: var(--space-4);
   }
 
-  .navbar-nav {
-    gap: var(--space-1);
-  }
+  .navbar-nav { gap: var(--space-1); }
 
   .nav-link {
-    padding: var(--space-3) var(--space-4) !important;
-    border-radius: var(--radius-md);
-    font-size: 0.9375rem !important;
+    margin: 0;
+    padding: var(--space-3) 0 !important;
+    font-size: 0.75rem !important;
   }
 
   .d-flex.align-items-center {
-    padding-top: var(--space-3);
+    padding-top: var(--space-4);
     border-top: 1px solid var(--hairline);
-    margin-top: var(--space-3);
+    margin-top: var(--space-4);
   }
 }

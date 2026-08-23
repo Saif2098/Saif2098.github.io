@@ -1,41 +1,63 @@
 // =============================================================
-// Design Tokens — Editorial Academic
+// Design tokens — "Offprint"
 // =============================================================
+// The site reads first as a well-set academic publication: paper, ink,
+// a single vermilion accent, hairline rules. Its wireless identity is a
+// second layer — a faint measurement graticule and an instrument colour
+// reserved for technical marks.
+//
+// Token NAMES are load-bearing: markup consumes --space-*, --accent,
+// --text-secondary and --container-max from inline style="". Values change
+// freely; names do not.
 
 :root {
-  // Accent — a warm scholarly teal
-  --accent: #1a7a6d;
-  --accent-hover: #15655a;
-  --accent-light: rgba(26, 122, 109, 0.08);
-  --accent-ring: rgba(26, 122, 109, 0.22);
+  // ---- Type ----
+  --font-display: 'Instrument Serif', 'Source Serif 4', Georgia, serif;
+  --font-sans: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  // Light mode — warm parchment tones
-  --bg-primary: #f7f5f0;
-  --bg-secondary: #efebe3;
+  // ---- Accent: vermilion, the annotation red of a marked-up paper ----
+  --accent: #c4361a;
+  --accent-hover: #9e2a12;
+  --accent-light: rgba(196, 54, 26, 0.08);
+  --accent-ring: rgba(196, 54, 26, 0.24);
+
+  // ---- Instrument: reserved for RF motifs, never for prose ----
+  --instrument: #2a6f7b;
+  --instrument-soft: rgba(42, 111, 123, 0.11);
+
+  // ---- Paper & ink ----
+  --bg-primary: #fbfaf8;
+  --bg-secondary: #f2f0ec;
   --bg-card: #ffffff;
-  --text-primary: #26241f;
-  --text-secondary: #56524a;
-  --text-muted: #857f76;
-  --border-color: #e3dfd7;
-  --hairline: rgba(38, 36, 31, 0.09);
+  --text-primary: #17150f;
+  --text-secondary: #55514a;
+  --text-muted: #8c877c;
+  --border-color: #e2ded6;
+  --hairline: rgba(23, 21, 15, 0.10);
+  --rule: rgba(23, 21, 15, 0.22);
 
-  // Elevation — two-layer shadows read as real material, not a blur halo
-  --shadow-sm: 0 1px 1px rgba(38, 36, 31, 0.04), 0 1px 3px rgba(38, 36, 31, 0.05);
-  --shadow-md: 0 2px 4px rgba(38, 36, 31, 0.05), 0 6px 16px rgba(38, 36, 31, 0.07);
-  --shadow-lg: 0 4px 8px rgba(38, 36, 31, 0.06), 0 16px 32px rgba(38, 36, 31, 0.09);
-  --shadow-navbar: 0 1px 12px rgba(38, 36, 31, 0.07);
+  // ---- Measurement graticule ----
+  --grid: rgba(23, 21, 15, 0.045);
+  --grid-size: 32px;
 
-  // Translucent material (§12) — nav/chrome floats over scrolling content
-  --material-bg: rgba(247, 245, 240, 0.72);
+  // ---- Elevation: print is flat; shadows stay near-invisible ----
+  --shadow-sm: 0 1px 1px rgba(23, 21, 15, 0.03);
+  --shadow-md: 0 1px 2px rgba(23, 21, 15, 0.04), 0 4px 12px rgba(23, 21, 15, 0.05);
+  --shadow-lg: 0 2px 6px rgba(23, 21, 15, 0.05), 0 12px 28px rgba(23, 21, 15, 0.07);
+  --shadow-navbar: 0 1px 10px rgba(23, 21, 15, 0.06);
+
+  // ---- Translucent chrome ----
+  --material-bg: rgba(251, 250, 248, 0.78);
   --material-blur: 20px;
   --material-saturate: 180%;
-  --material-edge: rgba(255, 255, 255, 0.55);
+  --material-edge: rgba(255, 255, 255, 0.6);
 
-  // Layout
-  --container-max: 1100px;
+  // ---- Layout ----
+  --container-max: 1080px;
   --container-padding: 1.5rem;
 
-  // Spacing scale
+  // ---- Spacing ----
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -46,54 +68,60 @@
   --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --space-20: 5rem;
 
-  // Border radius
-  --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 0.875rem;
-  --radius-xl: 1.125rem;
-  --radius-2xl: 1.5rem;
+  // ---- Radius: print-flat, not app-round ----
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 5px;
+  --radius-2xl: 6px;
   --radius-full: 9999px;
 
-  // Motion (§4) — curves that read as critically damped springs.
-  // --ease-spring settles without overshoot; --ease-bounce overshoots slightly
-  // and is reserved for momentum-carrying interactions only.
+  // ---- Motion ----
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.4, 0.64, 1);
 
-  --dur-press: 100ms;   // §1 — feedback on pointer-down must feel instant
-  --dur-fast: 200ms;
-  --dur-base: 320ms;
-  --dur-slow: 480ms;
+  --dur-press: 100ms;
+  --dur-fast: 180ms;
+  --dur-base: 300ms;
+  --dur-slow: 620ms;
 
-  // Legacy aliases (still referenced by theme internals)
   --transition-fast: var(--dur-fast) var(--ease-spring);
   --transition-base: var(--dur-base) var(--ease-spring);
   --transition-slow: var(--dur-slow) var(--ease-out);
 }
 
-// Dark mode — rich warm dark
+// =============================================================
+// Dark — "ink": the same publication printed white-on-black
+// =============================================================
+
 [data-bs-theme="dark"] {
-  --accent: #3dbaa8;
-  --accent-hover: #5dd4c2;
-  --accent-light: rgba(61, 186, 168, 0.12);
-  --accent-ring: rgba(61, 186, 168, 0.3);
+  --accent: #ff6a3d;
+  --accent-hover: #ff8a63;
+  --accent-light: rgba(255, 106, 61, 0.12);
+  --accent-ring: rgba(255, 106, 61, 0.30);
 
-  --bg-primary: #1a1917;
-  --bg-secondary: #23221e;
-  --bg-card: #272621;
-  --text-primary: #ebe7df;
-  --text-secondary: #b8b3a8;
-  --text-muted: #837e74;
-  --border-color: #3a3730;
-  --hairline: rgba(255, 255, 255, 0.08);
+  --instrument: #5fb8c4;
+  --instrument-soft: rgba(95, 184, 196, 0.13);
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.35);
-  --shadow-navbar: 0 1px 14px rgba(0, 0, 0, 0.5);
+  --bg-primary: #0f0e0c;
+  --bg-secondary: #171613;
+  --bg-card: #141311;
+  --text-primary: #efebe3;
+  --text-secondary: #b4aea2;
+  --text-muted: #837d71;
+  --border-color: #2d2b26;
+  --hairline: rgba(239, 235, 227, 0.10);
+  --rule: rgba(239, 235, 227, 0.26);
 
-  --material-bg: rgba(26, 25, 23, 0.72);
+  --grid: rgba(239, 235, 227, 0.05);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.5), 0 20px 40px rgba(0, 0, 0, 0.4);
+  --shadow-navbar: 0 1px 14px rgba(0, 0, 0, 0.55);
+
+  --material-bg: rgba(15, 14, 12, 0.78);
   --material-edge: rgba(255, 255, 255, 0.07);
 }

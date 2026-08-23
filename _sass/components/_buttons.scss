@@ -1,85 +1,66 @@
 // =============================================================
-// Pill buttons and icon links
+// Buttons — squared, ruled, mono-labelled
 // =============================================================
+// Print has no pills. These read as stamped labels: hairline box, mono
+// caps, one filled variant for the primary action on an entry.
 
 .btn-pill {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0.3rem 0.9rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: var(--radius-full);
-  border: 1px solid transparent;
+  padding: 0.4rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--text-secondary);
   cursor: pointer;
   text-decoration: none;
-  background-image: none !important;
-  line-height: 1.6;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: var(--shadow-sm);
   transition:
-    background-color var(--dur-fast) var(--ease-spring),
-    border-color var(--dur-fast) var(--ease-spring),
     color var(--dur-fast) var(--ease-spring),
-    box-shadow var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
     transform var(--dur-press) ease-out;
 
-  // §1 — feedback on press, instant
-  &:active {
-    transform: scale(0.96);
-    box-shadow: none;
-  }
-
   &:hover {
-    box-shadow: var(--shadow-md);
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
   }
 
+  // Feedback on press, not on release
+  &:active { transform: scale(0.96); }
+
+  // Primary: the paper itself
   &.btn-pdf {
     background-color: var(--accent);
+    border-color: var(--accent);
     color: #fff;
-    &:hover { background-color: var(--accent-hover); color: #fff; }
+    &:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #fff;
+    }
   }
 
-  &.btn-doi {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
-    &:hover { opacity: 0.85; color: var(--bg-primary); }
-  }
-
-  &.btn-arxiv {
-    background-color: #b31b1b;
-    color: #fff;
-    &:hover { background-color: #8c1515; color: #fff; }
-  }
-
-  &.btn-bib,
-  &.btn-abstract {
+  &.btn-arxiv,
+  &.btn-doi,
+  &.btn-website,
+  &.btn-git,
+  &.btn-bib {
     background-color: transparent;
     color: var(--text-secondary);
     border-color: var(--border-color);
     &:hover {
-      border-color: var(--accent);
       color: var(--accent);
+      border-color: var(--accent);
+      background-color: var(--accent-light);
     }
-  }
-
-  &.btn-website {
-    background-color: var(--accent);
-    color: #fff;
-    &:hover { background-color: var(--accent-hover); color: #fff; }
-  }
-
-  &.btn-git {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
-    &:hover { opacity: 0.85; color: var(--bg-primary); }
-  }
-
-  &.btn-paper {
-    background-color: #b31b1b;
-    color: #fff;
-    &:hover { background-color: #8c1515; color: #fff; }
   }
 }
 
@@ -87,12 +68,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: var(--radius-full);
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
-  font-size: 1.125rem;
-  background-image: none !important;
+  font-size: 1rem;
   transition:
     color var(--dur-fast) var(--ease-spring),
     background-color var(--dur-fast) var(--ease-spring),
@@ -103,7 +83,5 @@
     background-color: var(--accent-light);
   }
 
-  &:active {
-    transform: scale(0.92);
-  }
+  &:active { transform: scale(0.92); }
 }

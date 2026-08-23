@@ -1,15 +1,17 @@
 // =============================================================
-// Generic responsive grid utility
+// Page container
 // =============================================================
-
-.grid-auto {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-6);
-}
 
 .site-container {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-8) var(--container-padding) 0;
+  padding: var(--space-12) var(--container-padding) 0;
+  position: relative;
+
+  // Section numerals restart on every page
+  counter-reset: section project;
+
+  @media (max-width: 720px) {
+    padding-top: var(--space-8);
+  }
 }
