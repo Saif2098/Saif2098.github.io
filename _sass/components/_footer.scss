@@ -24,8 +24,15 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-8);
+
+  // Equal columns leave the About block too narrow for "University of
+  // Illinois Urbana-Champaign", which then wraps raggedly. Weight the
+  // columns once there is room for all four.
+  @media (min-width: 900px) {
+    grid-template-columns: 1.6fr 1.2fr 1fr 1fr;
+  }
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--container-padding);
@@ -59,6 +66,42 @@
     color: var(--text-muted);
     margin-right: var(--space-1);
   }
+}
+
+// The CV is a document, not a profile link — it gets its own column and
+// reads as an action rather than another entry in a list.
+.footer-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  transition:
+    color var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-press) ease-out;
+
+  i {
+    color: var(--text-muted);
+    margin-right: 0;
+    transition: color var(--dur-fast) var(--ease-spring);
+  }
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+    i { color: var(--accent); }
+  }
+
+  &:active { transform: scale(0.97); }
 }
 
 .footer-copyright {
