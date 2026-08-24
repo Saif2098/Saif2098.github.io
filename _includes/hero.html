@@ -18,7 +18,11 @@ spacing comes from paragraph margins rather than the flex gap.
 <div class="hero-links">
 {% if site.links.cv and site.links.cv != "" %}<a href="{{ site.url }}{{ site.baseurl }}/{{ site.links.cv }}" target="_blank" class="hero-link hero-link--primary"><i class="ai ai-cv"></i><span>Download CV</span></a>{% endif %}
 {% if site.email %}<a href="mailto:{{ site.email }}" class="hero-link"><i class="fa-solid fa-envelope"></i><span>{{ site.email }}</span></a>{% endif %}
-{% if site.links.google_scholar and site.links.google_scholar != "" %}<a href="{{ site.links.google_scholar }}" class="hero-link"><i class="ai ai-google-scholar"></i><span>Scholar</span></a>{% endif %}
+{% comment %}
+Google Scholar is intentionally footer-only. Do not restore a pill here just
+because site.links.google_scholar is set — the footer and the JSON-LD sameAs
+in head.html are its only surfaces by request.
+{% endcomment %}
 {% if site.links.github and site.links.github != "" %}<a href="{{ site.links.github }}" class="hero-link"><i class="fa-brands fa-github"></i><span>GitHub</span></a>{% endif %}
 {% if site.links.linkedin and site.links.linkedin != "" %}<a href="{{ site.links.linkedin }}" class="hero-link"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>{% endif %}
 {% if site.links.lab and site.links.lab != "" %}<a href="{{ site.links.lab }}" class="hero-link"><i class="fa-solid fa-flask"></i><span>iSens Lab</span></a>{% endif %}

@@ -10,3 +10,7 @@ node_modules/
 # Working files, not website source — kept local
 ewsn26-final38.pdf
 website-content-v*.md
+
+# CV staging and superseded copies — kept on disk, never published.
+cv_new/
+papers/*.local.pdf

@@ -108,8 +108,12 @@ permalink: /research/
 </div>
 
 <div class="proj-actions">
-<a href="https://immerse.illinois.edu/symposium-posters/82376" target="_blank" class="btn-pill btn-website">Demo</a>
+<a href="https://isens.cs.illinois.edu/projects/invisibleWireless" target="_blank" class="btn-pill btn-website">Group Project Page</a>
+<a href="https://immerse.illinois.edu/symposium-posters/82376" target="_blank" class="btn-pill btn-bib">Poster</a>
 </div>
+<!-- The iSens page covers the group's visualization research broadly rather than
+     WiViz specifically, so it is labelled as the group project page, not as WiViz.
+     The IMMERSE link is a symposium poster; it was previously mislabelled "Demo". -->
 </article>
 
 ## Earlier Research

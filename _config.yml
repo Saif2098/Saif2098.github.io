@@ -11,11 +11,10 @@ photo: saif-photo.png  # place your photo in images/
 # STEP 2: Your Links (optional -- delete any you don't use)
 # ============================================================
 links:
-  # Google Scholar: blank until Saif creates his profile. The old URL pointed
-  # at someone else's page. Every consumer (hero pill, footer link, and the
-  # JSON-LD sameAs in head.html) is guarded by an empty-string check, so an
-  # empty value removes it everywhere. Paste the real URL here to restore it.
-  google_scholar: ""
+  # Google Scholar renders in the footer and in the JSON-LD sameAs only. The
+  # hero pill is deliberately omitted from _includes/hero.html rather than
+  # blanked here, so the profile still reaches search engines.
+  google_scholar: "https://scholar.google.com/citations?user=cr2iXKIAAAAJ&hl=en"
   github: "https://github.com/Saif2098"
   linkedin: "https://www.linkedin.com/in/saif98"
   lab: "https://isens.cs.illinois.edu/"
@@ -97,6 +96,11 @@ scholar:
     reversed: "reversed"
 
 exclude:
+  # .gitignore keeps these out of the repo; Jekyll needs telling separately or
+  # it copies them into _site and serves them at a public URL. Both layers are
+  # required: git for what is committed, this for what is published.
+  - cv_new
+  - papers/cv-previous.local.pdf
   - Gemfile
   - Gemfile.lock
   - update_bootstrap.sh
