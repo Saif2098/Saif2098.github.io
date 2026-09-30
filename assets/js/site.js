@@ -79,7 +79,7 @@
 
     // Fields the site adds for presentation only — they are not part of the
     // citation and must not end up in anyone's .bib file.
-    var PRESENTATION_FIELDS = /^\s*(venue|status|topics|image|award|code|pdf)\s*=/i;
+    var PRESENTATION_FIELDS = /^\s*(venue|status|topics|image|award|code|pdf|slides)\s*=/i;
 
     function cleanBibtex(text) {
       return text

@@ -33,6 +33,7 @@ permalink: /research/
 
 <div class="proj-actions">
 <a href="https://ewsn.org/file-repository/ewsn2026/ewsn26-final38.pdf" target="_blank" class="btn-pill btn-pdf">Paper</a>
+<a href="{{ site.url }}{{ site.baseurl }}/papers/talks/winerf-ewsn2026-slides.pdf" target="_blank" class="btn-pill btn-website">Slides</a>
 </div>
 </article>
 
@@ -62,7 +63,7 @@ permalink: /research/
 <article class="proj-card" id="pu-hno" markdown="0">
 <h3 class="proj-title">PU-HNO — Physics-Unrolled Neural Operators for Radio Maps</h3>
 <p class="proj-meta">
-<span class="proj-status">Submitted to NeurIPS 2026</span>
+<span class="proj-status">NeurIPS 2026</span>
 <span class="proj-fact">Second author</span>
 </p>
 

@@ -57,10 +57,18 @@ each part can be styled and scanned independently.
       <a href="{{ entry.doi | prepend: 'https://doi.org/' }}" target="_blank" class="pub-link">DOI</a>
       {% endif %}
 
+      {% if entry.eprint %}
+      <a href="{{ entry.eprint | prepend: 'https://arxiv.org/abs/' }}" target="_blank" class="pub-link">arXiv</a>
+      {% endif %}
+
       {% if entry.pdf %}
       <a href="{{ entry.pdf }}" target="_blank" class="pub-link">PDF</a>
       {% elsif bibtest %}
       <a href="{{ site.url }}{{ site.baseurl }}/papers/{{ entry.file }}" target="_blank" class="pub-link">PDF</a>
+      {% endif %}
+
+      {% if entry.slides %}
+      <a href="{{ site.url }}{{ site.baseurl }}/{{ entry.slides }}" target="_blank" class="pub-link">Slides</a>
       {% endif %}
 
       {% if entry.code %}
