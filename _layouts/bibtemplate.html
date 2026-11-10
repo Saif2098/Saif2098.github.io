@@ -42,6 +42,10 @@ each part can be styled and scanned independently.
     </p>
     {% endif %}
 
+    {% if entry.type == "unpublished" and entry.note contains "co-primary" %}
+    <p class="pub-authors">{{ entry.note | remove: entry.status | remove_first: ". " }}</p>
+    {% endif %}
+
     {% assign bibtest = false %}
     {% if entry.file %}
     {% assign bibfile = "/papers/" | append: entry.file %}
@@ -75,7 +79,9 @@ each part can be styled and scanned independently.
       <a href="{{ entry.code }}" target="_blank" class="pub-link">Code</a>
       {% endif %}
 
+      {% unless entry.type == "unpublished" %}
       <button class="pub-link" data-bib-open="bib-{{ entry.key }}" data-bib-title="BibTeX">BibTeX</button>
+      {% endunless %}
 
       {% if entry.abstract %}
       <button class="pub-link" data-bib-open="abs-{{ entry.key }}" data-bib-title="Abstract">Abstract</button>

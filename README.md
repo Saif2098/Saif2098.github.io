@@ -21,7 +21,7 @@ Two settings this depends on, both already configured:
 - **Settings → Pages → Source** is *GitHub Actions*, not "deploy from a branch". It must stay that way — jekyll-scholar is not on GitHub Pages' built-in plugin allowlist, so the native builder would produce an **empty Publications page** while everything else looked fine.
 - The **`github-pages` environment** restricts deployments to `master`. Deploying from any other branch is rejected before the job starts (it fails with zero steps run, which looks mysterious if you don't know).
 
-Watch a deploy under the repo's **Actions** tab. After it goes green, the canary to check is that **Publications lists both papers under Conference** — if jekyll-scholar didn't run, that page renders empty and nothing else looks wrong.
+Watch a deploy under the repo's **Actions** tab. After it goes green, the canary to check is that **Publications lists two papers under Accepted Publications and two under Under Review** — if jekyll-scholar didn't run, that page renders empty and nothing else looks wrong.
 
 ## Branches
 
@@ -71,7 +71,7 @@ The home page shows the newest four with a "See all news" link; `/allnews.html` 
 
 ### Add a publication
 
-`assets/ref.bib`. Use `@inproceedings` for the Conference section and `@unpublished` for Preprints. Alongside standard BibTeX fields, this site understands eight of its own:
+`assets/ref.bib`. Use `@inproceedings` for the Conference section and `@unpublished` for Under Review. Alongside standard BibTeX fields, this site understands eight of its own:
 
 | Field | Purpose |
 |---|---|
@@ -84,7 +84,7 @@ The home page shows the newest four with a "See all news" link; `/allnews.html` 
 | `award` | Renders an accent badge, e.g. `Best Paper` |
 | `slides` | Site-relative path to talk slides, e.g. `papers/talks/….pdf`, for a Slides button |
 
-For `@unpublished`, put the bare arXiv ID in `doi` (e.g. `2608.18495`) — the template prefixes it to build the arXiv link. Once a preprint is accepted, move it to `@inproceedings` and keep the ID in the standard `eprint` field (with `archivePrefix = {arXiv}`) instead — on a published entry `doi` builds a doi.org link. The Preprints heading hides itself when there are none.
+For `@unpublished`, omit PDF, DOI, and arXiv fields unless a public artifact is approved. Use `status` for the submission venue and standard `note` for submission status and contribution notes. Once a preprint is accepted, move it to `@inproceedings` and keep the ID in the standard `eprint` field (with `archivePrefix = {arXiv}`) instead — on a published entry `doi` builds a doi.org link. The Under Review heading hides itself when there are none.
 
 > **These eight are presentation-only.** The BibTeX dialog strips them before you copy, so nobody ends up with `image = {...}` in their `.bib`. If you add another display field, add its name to `PRESENTATION_FIELDS` in `assets/js/site.js` — and see the JavaScript note below.
 

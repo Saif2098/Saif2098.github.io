@@ -99,6 +99,8 @@ exclude:
   # .gitignore keeps these out of the repo; Jekyll needs telling separately or
   # it copies them into _site and serves them at a public URL. Both layers are
   # required: git for what is committed, this for what is published.
+  - papers/Papers
+  - papers/CV_11_10_26.pdf
   - cv_new
   - papers/cv-previous.local.pdf
   - Gemfile

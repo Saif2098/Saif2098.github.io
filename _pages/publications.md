@@ -9,13 +9,13 @@ permalink: /publications/
 
 <div class="pub-list" markdown="0">
 
-<h3 class="pub-group">Conference</h3>
+<h3 class="pub-group">Accepted Publications</h3>
 
 {% bibliography --query @inproceedings %}
 
 {% capture preprint_count %}{% bibliography_count --query @unpublished %}{% endcapture %}
 {% if preprint_count != "0" %}
-<h3 class="pub-group">Preprints</h3>
+<h3 class="pub-group">Under Review</h3>
 
 {% bibliography --query @unpublished %}
 {% endif %}

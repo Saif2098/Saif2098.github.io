@@ -11,8 +11,6 @@ permalink: /research/
 <h3 class="proj-title">WiNeRF — Learning Wireless Channels from Sparse WiFi Measurements</h3>
 <p class="proj-meta">
 <span class="proj-status">EWSN 2026</span>
-<span class="proj-fact">First author</span>
-<span class="proj-fact">In collaboration with Intel</span>
 </p>
 
 <div class="proj-intro">
@@ -38,47 +36,42 @@ permalink: /research/
 </article>
 
 <article class="proj-card" id="canopytwin" markdown="0">
-<h3 class="proj-title">CanopyTwin — Physics-Grounded Vegetation Modeling for Wireless Digital Twins</h3>
+<h3 class="proj-title" id="foliart">FoliaRT: Reusable Neural Electromagnetic Canopy Modeling for Wireless Ray Tracing</h3>
 <p class="proj-meta">
-<span class="proj-status">Ongoing research</span>
-<span class="proj-fact">Neural operators</span>
+<span class="proj-status">Submitted to ACM SenSys 2027</span>
 <span class="proj-fact">Wireless digital twins</span>
 </p>
-
 <div class="proj-intro">
-<p class="proj-lead">Vegetation remains difficult for scene-scale wireless simulation. Practical ray tracers often approximate foliage through penetration loss, effective material properties, or simplified scattering behavior, while explicitly resolving the many interactions among leaves, branches, and other structures can become prohibitively expensive at scene scale.</p>
-<!-- TODO: project image -->
-<!-- Suggested image (v7): a conceptual diagram contrasting explicit leaf/branch geometry
-     with a compact learned vegetation scattering operator. Add a <figure class="proj-figure">
-     directly above the lead paragraph; it floats right automatically. -->
+<figure class="proj-figure proj-figure--wide">
+<a href="{{ site.url }}{{ site.baseurl }}/images/research/foliart-overview.png" target="_blank" rel="noopener">
+<img src="{{ site.url }}{{ site.baseurl }}/images/research/foliart-overview.png" alt="FoliaRT system overview: offline physics-based canopy-response generation and neural training, followed by online canopy-aware ray tracing and downstream tasks." loading="lazy">
+</a>
+</figure>
+<p class="proj-lead">Conventional ray tracers often model vegetation with simplified attenuation approximations, overlooking directional scattering. <strong>FoliaRT</strong> learns reusable canopy electromagnetic responses conditioned on compact morphology descriptors, predicting transmission, absorption, and directional scattering without detailed foliage reconstruction.</p>
 </div>
-
 <div class="proj-body">
-<p>I am currently designing a <strong>physics-grounded neural-operator model</strong> that learns the aggregate scattering behavior of vegetation from high-fidelity physical simulation. The goal is to replace expensive leaf- and branch-level interaction modeling with a compact learned representation that can eventually be integrated into wireless digital twins for fast and differentiable propagation modeling.</p>
-
-<p>This project is currently in the <strong>architecture and model-design stage</strong>. Current work focuses on identifying the right physical abstraction and learning formulation for complex multi-interaction scattering inside vegetation.</p>
+<p>I developed a <strong>PyTorch-based electromagnetic multiple-scattering model</strong> to generate training data for physics-guided neural predictors. Integrated into <strong>differentiable Sionna RT</strong>, the learned canopy model supports canopy-aware propagation, wireless coverage prediction, and vegetation sensing across different scenes.</p>
+<p>On real-world <strong>AERPAW UAV measurements</strong>, FoliaRT reduced median received-power prediction error by <strong>53%, from 4.2 dB to 2.0 dB</strong>, compared with the ITU-R vegetation baseline. Canopy-response inference is approximately <strong>35,000× faster</strong> than the physics model.</p>
 </div>
 </article>
 
 <article class="proj-card" id="pu-hno" markdown="0">
-<h3 class="proj-title">PU-HNO — Physics-Unrolled Neural Operators for Radio Maps</h3>
+<h3 class="proj-title" id="rayno">RayNO: Physics Unrolled Neural Operator for Accelerating High-Fidelity Wireless Ray Tracing</h3>
 <p class="proj-meta">
 <span class="proj-status">NeurIPS 2026</span>
-<span class="proj-fact">Second author</span>
 </p>
 
 <div class="proj-intro">
-<figure class="proj-figure">
-<img src="{{ site.url }}{{ site.baseurl }}/images/research/puhno-teaser.png" alt="PU-HNO's three-stage neural-operator architecture: specular transport, edge diffraction, and scattering, with staged supervision" loading="lazy">
+<figure class="proj-figure proj-figure--wide">
+<a href="{{ site.url }}{{ site.baseurl }}/images/research/rayno-architecture.png" target="_blank" rel="noopener">
+<img src="{{ site.url }}{{ site.baseurl }}/images/research/rayno-architecture.png" alt="RayNO architecture: geometry and material conditioning, shared encoder, and staged specular transport, edge diffraction, and scattering operators." loading="lazy">
+</a>
 </figure>
-<!-- Figure 3 extracted from arXiv:2608.18495, matching the v7 suggestion:
-     the three-stage PU-HNO architecture showing reflection/specular structure,
-     diffraction refinement, and scattering refinement. -->
-<p class="proj-lead">High-fidelity radio maps are expensive to simulate, while inexpensive finite-ray simulations are faster but contain noise and can miss fine propagation structure. <strong>PU-HNO</strong> uses a physics-unrolled neural-operator architecture that progressively refines wireless fields through stages associated with reflection, diffraction, and scattering rather than treating radio-map prediction as generic image-to-image regression.</p>
+<p class="proj-lead">High-fidelity radio maps are expensive to simulate, while inexpensive finite-ray simulations are faster but contain noise and can miss fine propagation structure. <strong>RayNO</strong> uses multi-fidelity learning and a physics-unrolled neural-operator architecture that progressively refines wireless fields through stages associated with reflection, diffraction, and scattering rather than treating radio-map prediction as generic image-to-image regression.</p>
 </div>
 
 <div class="proj-body">
-<p>I contributed to <strong>dataset generation and model development</strong>. The model achieved approximately <strong>3.5 dB RMSE</strong> and <strong>0.82 outage F1</strong> against high-fidelity references. In one downstream access-point-placement experiment on a <strong>10,000 m² floorplan</strong>, using the PU-HNO prediction resulted in approximately <strong>92 Mbps</strong> throughput compared with <strong>16 Mbps</strong> using a CNN prediction, despite relatively similar image-similarity scores.</p>
+<p>I contributed to <strong>dataset generation and model development</strong>. The model achieved <strong>3.47 dB RMSE</strong> and <strong>0.82 outage F1</strong> against high-fidelity references. In one downstream access-point-placement experiment on a <strong>10,000 m² floorplan</strong>, using the RayNO prediction resulted in approximately <strong>92 Mbps</strong> throughput compared with <strong>16 Mbps</strong> using a CNN prediction, despite relatively similar image-similarity scores.</p>
 </div>
 
 <div class="proj-actions">
@@ -88,24 +81,24 @@ permalink: /research/
 </article>
 
 <article class="proj-card" id="wiviz" markdown="0">
-<h3 class="proj-title">WiViz — Making Invisible Wireless Mechanisms Understandable</h3>
+<h3 class="proj-title">WiViz: Interactive Visualizations for Wireless Literacy</h3>
 <p class="proj-meta">
-<span class="proj-status">Ongoing</span>
+<span class="proj-status">Submitted to ACM HotMobile 2027</span>
 <span class="proj-fact">HCI + Wireless</span>
 </p>
 
 <div class="proj-intro">
-<p class="proj-lead">Wireless interfaces usually show outcomes—signal bars, throughput, or coverage maps—but hide the physical mechanisms that produced them. <strong>WiViz</strong> explores whether interactive, mechanism-revealing visualizations can help non-experts reason about wireless behavior.</p>
-<!-- TODO: project image -->
-<!-- Suggested image (v7): a WiViz scene showing transmitter, receiver, propagation paths,
-     and an environmental interaction such as blockage or reflection. Add a
-     <figure class="proj-figure"> directly above the lead paragraph; it floats right automatically. -->
+<figure class="proj-figure">
+<a href="{{ site.url }}{{ site.baseurl }}/images/research/wiviz-interface.png" target="_blank" rel="noopener">
+<img src="{{ site.url }}{{ site.baseurl }}/images/research/wiviz-interface.png" alt="WiViz interface showing signal propagation over time, augmented-reality controls, and interaction with the indoor scene." loading="lazy">
+</a>
+</figure>
+<p class="proj-lead">Wireless interfaces usually show outcomes—signal bars, throughput, or coverage maps—but hide the physical mechanisms that produced them. <strong>WiViz</strong> is an interactive, mechanism-centered visualization system designed to help non-experts understand wireless propagation and reason about its behavior.</p>
 </div>
-
 <div class="proj-body">
-<p>WiViz uses an interactive 3D environment built with Unity and Sionna RT to expose mechanisms such as propagation, blockage, reflection, multipath, and interference. In an initial <strong>24-participant study</strong>, users of the mechanism-revealing visualization correctly identified underlying wireless mechanisms <strong>80.6% of the time versus 24.2% with an outcome-only representation</strong>.</p>
-
-<p>I currently lead the design of the next WiViz user study, which focuses on <strong>wireless literacy, mechanistic reasoning, and transfer to unfamiliar scenarios</strong>, and I occasionally contribute to implementation.</p>
+<p>The submitted paper, <em>Wireless Literacy: Building Mental Models for Reasoning About Everyday Wireless Systems</em>, introduces a broader research agenda spanning mechanistic understanding, operational reasoning, and understanding wireless capabilities. WiViz is an initial case study within this agenda, using Unity and Sionna RT to connect indoor propagation paths and signal animations to outcomes such as coverage and connectivity.</p>
+<p>In a preliminary <strong>24-participant study</strong>, WiViz supported <strong>80.6% mechanism-correct explanations versus 24.2% with heatmaps</strong> and <strong>87.5% decision accuracy versus 65.2%</strong>. The study also revealed misconceptions introduced by simplified representations, motivating abstractions that are understandable and physically faithful.</p>
+<p>I lead the current user-study design and evaluation and contribute to the Unity/Sionna RT implementation.</p>
 </div>
 
 <div class="proj-actions">

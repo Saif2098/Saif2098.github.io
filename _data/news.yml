@@ -1,14 +1,21 @@
 # News items shown on the home page sidebar.
-# The 3 most recent are shown; all appear on /allnews.
+# The 4 most recent are shown; all appear on /allnews.
 # Each entry needs: date, headline
+# FoliaRT status as of November; HotMobile submission month confirmed by Saif.
+- date: Nov 2026
+  headline: '<strong>FoliaRT</strong> is submitted to <em>ACM SenSys 2027</em>. <a href="/research/#foliart">[Research]</a>'
+
+- date: Oct 2026
+  headline: '<strong>Wireless Literacy / WiViz</strong> submitted to <em>ACM HotMobile 2027</em>. <a href="/research/#wiviz">[Research]</a>'
+
 - date: Sep 2026
-  headline: '<strong>PU-HNO</strong> accepted at <em>NeurIPS 2026</em>. <a href="https://arxiv.org/abs/2608.18495">[arXiv]</a>'
+  headline: '<strong>RayNO (formerly PU-HNO)</strong> accepted at <em>NeurIPS 2026</em>. <a href="https://arxiv.org/abs/2608.18495">[arXiv]</a>'
 
 - date: Sep 2026
   headline: 'Presented <strong>WiNeRF</strong> at <em>EWSN 2026</em> in Dresden, Germany (Sep 17). <a href="/papers/talks/winerf-ewsn2026-slides.pdf">[Slides]</a> <a href="https://doi.org/10.3217/ck00-mq70">[Paper]</a>'
 
 - date: Aug 2026
-  headline: '<strong>PU-HNO</strong> submitted to <em>NeurIPS 2026</em>; preprint available on <a href="https://arxiv.org/abs/2608.18495">arXiv</a>.'
+  headline: '<strong>RayNO (formerly PU-HNO)</strong> submitted to <em>NeurIPS 2026</em>; preprint available on <a href="https://arxiv.org/abs/2608.18495">arXiv</a>.'
 
 - date: April 2026
   headline: '<strong>WiNeRF</strong> accepted at <em>EWSN 2026</em>. <a href="https://ewsn.org/file-repository/ewsn2026/ewsn26-final38.pdf">[Paper]</a>'

@@ -1,8 +1,9 @@
 @inproceedings{murshed2026puhno,
-  title = {Physics-Unrolled Neural Operator for Wireless Field Modeling},
+  title = {RayNO: Physics Unrolled Neural Operator for Accelerating High-Fidelity Wireless Ray Tracing},
   author = {Rafid Umayer Murshed and Saif Ur Rahman and Mingyue Tang and Elahé Soltanaghai},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   venue = {NeurIPS '26},
+  status = {Accepted},
   topics = {Neural Operators, Radio Maps, Wireless Simulation},
   eprint = {2608.18495},
   archivePrefix = {arXiv},
@@ -27,8 +28,27 @@
   keywords = {Wireless Channel Modeling, Channel State Information (CSI), Neural Fields, Neural Radiance Fields, Commodity WiFi, Beamforming, Angle-of-Arrival Estimation},
   abstract = {Wireless embedded systems increasingly rely on wireless channel information for decision making, yet practical platforms operate under severe constraints, including few antennas, narrow bandwidth, and sparse, noisy measurements. While neural field based approaches inspired by Neural Radiance Field (NeRF) have recently been explored for continuous wireless channel modeling, existing approaches depend on dense measurements or external priors such as known geometry, visual context, or angle-of-arrival (AoA) information, limiting their practicality in real-world deployments. We present WiNeRF, a neural field framework that learns a spatially continuous, complex-valued wireless channel representation directly from sparse channel state information (CSI) collected by commodity WiFi devices. WiNeRF embeds intrinsic system constraints, such as antenna geometry, limited spatial resolution, and phase uncertainty, as inductive biases through a 3D conical wave sampling model, a multi-resolution implicit scene representation, and a differentiable optimization framework for complex-valued channel learning. Across diverse indoor environments with non-line-of-sight (NLoS) regions, WiNeRF achieves a median prediction SNR of 5.3 dB, outperforming prior neural baselines by 4.9 dB on average (approximately 3x higher prediction SNR), and produces a task-agnostic channel representation that can be directly reused in standard signal-processing pipelines, including beamforming, AoA estimation, and RSSI coverage mapping, without modifying existing hardware or wireless protocols.},
   venue = {ACM EWSN '26},
+  status = {Published},
   topics = {Neural Fields, Channel Modeling, Commodity WiFi},
   pdf = {https://ewsn.org/file-repository/ewsn2026/ewsn26-final38.pdf},
   slides = {papers/talks/winerf-ewsn2026-slides.pdf},
   image = {winerf.png},
+}
+
+@unpublished{rahman2026foliart,
+  title = {FoliaRT: A Reusable Neural Electromagnetic Canopy Model for Sub-6 GHz Wireless Ray Tracing},
+  author = {Rahman, Saif Ur and Murshed, Rafid Umayer and Soltanaghai, Elahé},
+  year = {2026},
+  status = {Submitted to ACM SenSys 2027},
+  note = {Submitted to ACM SenSys 2027},
+  topics = {Canopy Modeling, Differentiable Simulation},
+}
+
+@unpublished{dmitriev2026wirelessliteracy,
+  title = {Wireless Literacy: Building Mental Models for Reasoning About Everyday Wireless Systems},
+  author = {Dmitriev, Anton and Rahman, Saif Ur and Murshed, Rafid Umayer and Sterman, Sarah and Soltanaghai, Elahé},
+  year = {2026},
+  status = {Submitted to ACM HotMobile 2027},
+  note = {Submitted to ACM HotMobile 2027. Anton Dmitriev and Saif Ur Rahman are co-primary authors (equal contribution).},
+  topics = {Wireless Literacy, Interactive Visualization},
 }

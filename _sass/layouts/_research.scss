@@ -199,3 +199,17 @@
   .mini-grid { column-gap: var(--space-8); }
   .mini-card { padding-right: var(--space-6); }
 }
+
+// Keep project deep links visible below the sticky navigation.
+.proj-card,
+.proj-title[id] {
+  scroll-margin-top: 7rem;
+}
+
+// Wide system diagrams need more room than the compact project thumbnails.
+.proj-figure.proj-figure--wide {
+  float: none;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 var(--space-6);
+}
